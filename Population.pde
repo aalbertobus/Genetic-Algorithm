@@ -30,12 +30,11 @@ class Population {
   }
 
 
-
-    int[][] convertBinary(int chromosomes[][]) {  //convert binary int to decimal int and return the params
+  float[][] convertBinary(int chromosomes[][]) {  //convert binary int to decimal int and return the params
     int result = 0; // to find decimal from every binary
     int limits = nbits;
     int ponential = 0;
-    int paramresults [][] = new int[nipop][params];
+    float paramresults [][] = new float[nipop][(params+1)];
 
     for (int i = 0; i < chromosomes.length ; i++) {
       for (int j = chromosomes[0].length-1; j > -1; j--) { //read chromsomes array backwards
@@ -52,9 +51,6 @@ class Population {
           else if (chromosomes[i][j] == 0) {
             result = result * 1;
           }
-          //printing result...
-          //print("r = " + result + " ");
-          // print("|||| ");   
 
           //storing in paramresults array 
           paramresults[i][(params-1)] = result;
@@ -70,22 +66,22 @@ class Population {
 
         if (col-limits < 0) {   // end line
           limits = nbits;
-          params = paramresults[0].length;
+          params = paramresults[0].length-1;
           //print("Done Line");
         }
       }
       // println("\n");
     }
+    return paramresults;  //return value
 
-
-    //printinr and running trough results array
-    for (int i = 0; i < paramresults.length; i++) {
-      for (int j = 0; j < paramresults[0].length; j++) {
-        print("[" + paramresults[i][j] + "] ");
-      } 
-      print("\n");
-    }
-    return paramresults;
+    /*printinr and running trough results array
+     for (int i = 0; i < paramresults.length; i++) {
+     for (int j = 0; j < paramresults[0].length; j++) {
+     print("[" + paramresults[i][j] + "] ");
+     } 
+     print("\n");
+     }
+     */
   }
 }
 

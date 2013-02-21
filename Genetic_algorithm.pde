@@ -9,40 +9,47 @@ void setup() {
   size(200, 200);
   pops = new Population(nbits, nipop, params);
   calculate(pops.convertBinary(pops.generate()));  ////generate binary and convert it to decimal
-  
 }
 
 void draw() {
 }
 
-void calculate(int paramresults[][]){
+void calculate(float paramresults[][]) {
   float result = 0;
   float results[] = new float[paramresults.length];  //arrsay to store results for the function
-  
+
   //calculating the function
-  for(int i = 0; i < paramresults.length; i++){
-    int x = paramresults[i][0];
-    int y = paramresults[i][1];
-    int z = paramresults[i][2];
+  for (int i = 0; i < paramresults.length; i++) {
+    float x = paramresults[i][0];
+    float y = paramresults[i][1];
+    float z = paramresults[i][2];
     result = ((x*y)-z);
-    result = (result/((pow(x,2))+(pow(y,2))+(pow(z,2))));
-    results[i] = result;
-    print("r = " + result + " \n" );  
+    //result = (result/((pow(x, 2))+(pow(y, 2))+(pow(z, 2))));
+    paramresults[i][paramresults[0].length-1] = result;
   }
-  
-  //saving results to txt file
-  String stringresults[] = new String[results.length];
-  for(int i = 0; i < stringresults.length; i++) {
-    stringresults[i] = results[i] + " ";  
+
+  //printinr and running trough results array
+  for (int i = 0; i < paramresults.length; i++) {
+    for (int j = 0; j < paramresults[0].length; j++) {
+      print("[" + paramresults[i][j] + "] ");
+    } 
+    print("\n");
   }
-  
-  saveStrings("population.txt", stringresults);
-  
-    
+
+
+  //sorting the array in base of results
+
+
+
+  /*saving results to txt file
+   String stringresults[] = new String[results.length];
+   for (int i = 0; i < stringresults.length; i++) {
+   stringresults[i] = results[i] + " ";
+   }
+   
+   saveStrings("population.txt", stringresults);
+   */
 }
-
-
-
 
 
 
