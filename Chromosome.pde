@@ -7,7 +7,7 @@ class Chromosome {
   Chromosome() {
     x = random(width);  //positionX
     y = random(height); //position Y
-    diam = 50; //diameter
+    diam = 12; //diameter
     if (random(0, 1) < 0.5) {  //assigning status
       status = false;
     } 
@@ -15,6 +15,20 @@ class Chromosome {
       status = true;
     }
   }
+
+  void goCenter() {
+    if(x < width/2)
+      x+=frameRate/10;
+      else if(x > width/2)
+        x-=frameRate/20;
+    
+         if(y < height/2)
+          y+=frameRate/20;
+          else if(y > height/2)
+          y-=frameRate/10;
+  }
+
+
 
   void display() {
     noStroke();

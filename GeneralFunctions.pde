@@ -13,7 +13,29 @@ void calculate(float paramresults[][], String sortype_) {
   printFloat(paramresults);
   resultSort(paramresults, sortype_);  //sorting the results array
   printFloat(paramresults);
+  
+  matingPool(paramresults);  // do the matingPool function
+  
 }
+
+
+
+//------------------MATINGPOOL---------------
+
+void matingPool(float paramresults[][]){
+    nPop = (round(random(1,paramresults.length)));
+    nGood = (round(random(1,nPop)));
+    nBad = nPop-nGood;
+   println("nPop = " + nPop + " nGood = " +nGood + " Nbad = " +nBad);  
+}
+
+
+//-----------------PAIRING-------------------
+void pairing(){
+  
+    
+}
+
 
 //--------------------------------DISPLAY & PRINT FUNCTIONS------------------------------------
 //print 1 and 0 status from every chromosome
@@ -43,6 +65,9 @@ void displayChromosomes() {
   for (int i = 0; i < chromosomes.length; i++) {
     for (int j = 0; j < chromosomes[0].length; j++) {
       chromosomes[i][j].display();
+      
+        //chromosomes[i][j].goCenter();  
+      
     }
   }
 }

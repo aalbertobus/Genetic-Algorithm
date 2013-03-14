@@ -1,6 +1,9 @@
-int nbits = 3; // rows for the initial population array
-int nipop = 3;  //cols for the initial
+int nGood,nBad,nPop;
+
+int nbits = 4; // cols for the initial population array
+int nipop =5 ;  //rows for the initial population array
 int params = 3;
+
 String sortype = "maxmin";  // sort type can be minmax or maxmin
 
 //int col = nbits*params;
@@ -10,7 +13,7 @@ Chromosome[][] chromosomes = new Chromosome[nipop][nbits*params];
 
 
 void setup() {
-  size(500, 500);
+  size(200, 200);
   smooth();
 //---------------Creating CHROMOSOMES---------
   for (int i = 0; i < chromosomes.length; i++) {
@@ -23,10 +26,12 @@ void setup() {
   printBinary();
    //convert from binary to decimal,calculate & sort (sort is minmax or maxmin and use the last column(fitness result) as reference)
   calculate(bintoFloat(chromosomes),sortype);
+  
 }
 
 void draw() {
   background(180);
   displayChromosomes(); //display 
+   
 }
 
