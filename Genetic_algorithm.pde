@@ -25,7 +25,7 @@ void setup() {
   //print status of every chromosome
   printBinary();
    //convert from binary to decimal,calculate & sort (sort is minmax or maxmin and use the last column(fitness result) as reference)
-  calculate(bintoFloat(chromosomes),sortype);
+  calculate(bintoFloat(chromosomes),sortype); 
   
 }
 

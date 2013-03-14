@@ -8,12 +8,11 @@ void calculate(float paramresults[][], String sortype_) {
     float z = paramresults[i][2];
     result = (x+y+z); 
 
-    paramresults[i][paramresults[0].length-1] = result;
+    paramresults[i][paramresults[0].length-2] = result;
   }
-  printFloat(paramresults);
+  //printFloat(paramresults);
   resultSort(paramresults, sortype_);  //sorting the results array
   printFloat(paramresults);
-  
   matingPool(paramresults);  // do the matingPool function
   
 }
@@ -81,10 +80,10 @@ float[][] bintoFloat(Chromosome chromosomes[][]) {  //converts binary to float a
   int result = 0; 
   int limits = nbits;
   int ponential = 0;
-  float paramresults[][] = new float[nipop][params+1];
+  float paramresults[][] = new float[nipop][params+2];  //params+1
 
   for (int i = 0; i < chromosomes.length ; i++) {
-    for (int j = chromosomes[0].length-1; j > -1; j--) { //read chromsomes array backwards
+    for (int j = chromosomes[0].length-1; j > -1; j--) { //read chromsomes array backwards  //-1
 
       if ((j > (col-limits)) && (chromosomes[i][j].status == true)) {
         result = result + int(pow(2, ponential));           // make the binary conversion
@@ -113,7 +112,7 @@ float[][] bintoFloat(Chromosome chromosomes[][]) {  //converts binary to float a
 
       if (col-limits < 0) {   // end line
         limits = nbits;
-        params = paramresults[0].length-1;
+        params = paramresults[0].length-2;
       }
     }
   }
@@ -128,10 +127,10 @@ void resultSort(float paramresults[][], String sortype) {
   int col = paramresults[0].length;
   float [] aux = new float [col];
 
-  if (sortype == "minmax") {   //order from min to max
+  if (sortype == "minmax") {   //order from min to max 
     for (int i = 0; i < row; i++) {
       for (int j = 0; j < row-1; j++) {
-        if (paramresults[j][(paramresults[0].length -1)] > paramresults[j+1][(paramresults[0].length -1)]) {
+        if (paramresults[j][(paramresults[0].length -2)] > paramresults[j+1][(paramresults[0].length -2)]) {
           for (int k = 0; k < col; k++) {
             aux[k] = paramresults[j][k];
             paramresults[j][k] = paramresults[j+1][k];
@@ -145,7 +144,7 @@ void resultSort(float paramresults[][], String sortype) {
   else if (sortype == "maxmin") {   //order from max to min
     for (int i = 0; i < row; i++) {
       for (int j = 0; j < row-1; j++) {
-        if (paramresults[j][(paramresults[0].length -1)] < paramresults[j+1][(paramresults[0].length -1)]) {
+        if (paramresults[j][(paramresults[0].length -2)] < paramresults[j+1][(paramresults[0].length -2)]) {
           for (int k = 0; k < col; k++) {
             aux[k] = paramresults[j][k];
             paramresults[j][k] = paramresults[j+1][k];
