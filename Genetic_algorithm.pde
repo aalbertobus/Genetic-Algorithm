@@ -1,7 +1,7 @@
 int nGood,nBad,nPop;
 
 int nbits = 4; // cols for the initial population array
-int nipop =5 ;  //rows for the initial population array
+int nipop =10 ;  //rows for the initial population array
 int params = 3;
 
 String sortype = "maxmin";  // sort type can be minmax or maxmin

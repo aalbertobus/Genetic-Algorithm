@@ -14,25 +14,38 @@ void calculate(float paramresults[][], String sortype_) {
   resultSort(paramresults, sortype_);  //sorting the results array
   printFloat(paramresults);
   matingPool(paramresults);  // do the matingPool function
-  
+  pairingChamp(paramresults);  //pairing using championship technique
 }
 
 
 
 //------------------MATINGPOOL---------------
 
-void matingPool(float paramresults[][]){
-    nPop = (round(random(1,paramresults.length)));
-    nGood = (round(random(1,nPop)));
-    nBad = nPop-nGood;
-   println("nPop = " + nPop + " nGood = " +nGood + " Nbad = " +nBad);  
+void matingPool(float paramresults[][]) {
+  nPop = (round(random(1, paramresults.length)));
+  nGood = (round(random(1, nPop)));
+  nBad = nPop-nGood;
+  println("nPop = " + nPop + " nGood = " +nGood + " Nbad = " +nBad);
 }
 
 
 //-----------------PAIRING-------------------
-void pairing(){
-  
+void pairingChamp(float paramresults[][]) {
+
+  //generate two parents (array indexes) and choose the less one (best one)
+  //then move it to paramresults array
+  for (int i = 0; i < nGood; i++) {
     
+    //generate parents
+    int parent1 = ceil((nGood*random(0, 1)));
+    int parent2 = ceil((nGood*random(0, 1))); 
+    float parentmin = min(parent1, parent2);  //best one parent 
+    println("p1 = " +  parent1 + " p2 = " + parent2 + " min = " + parentmin);
+
+    //copy the best parent (parentmin) in to paramresults array til nGood index
+      paramresults[i][paramresults[0].length-1] = parentmin;
+  }
+  printFloat(paramresults);  
 }
 
 
@@ -64,9 +77,8 @@ void displayChromosomes() {
   for (int i = 0; i < chromosomes.length; i++) {
     for (int j = 0; j < chromosomes[0].length; j++) {
       chromosomes[i][j].display();
-      
-        //chromosomes[i][j].goCenter();  
-      
+
+      //chromosomes[i][j].goCenter();
     }
   }
 }
@@ -160,8 +172,4 @@ void resultSort(float paramresults[][], String sortype) {
     println("sort string needs to be 'minmax' or 'maxmin' in order to sort");
   }
 }
-
-
-
-
 
