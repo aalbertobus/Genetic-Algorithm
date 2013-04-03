@@ -3,7 +3,6 @@ class Chromosome {
   float x, y;
   float diam;
 
-
   Chromosome() {
     x = random(width);  //positionX
     y = random(height); //position Y

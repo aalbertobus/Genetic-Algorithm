@@ -1,7 +1,7 @@
 //------------------------------BEGIN-PROCESS--------------------------------
-void startProcess(){
+void startProcess() {
   //convert from binary to decimal,calculate & sort (sort is minmax or maxmin and use the last column(fitness result) as reference)
-  calculate(bintoFloat(chromosomes),sortype);    
+  calculate(bintoFloat(chromosomes), sortype);
 }
 
 //-------------------------------CALCULATE FUNCTION----------------------------
@@ -21,7 +21,7 @@ void calculate(float paramresults[][], String sortype_) {
   printFloat(paramresults);
   matingPool(paramresults);  // do the matingPool function
   pairingChamp(paramresults);  //pairing using championship technique
-  floattoBin();  //converting sorted values to bin and overwrite chromosomes[][] array
+  crossing(paramresults);  //converting sorted values to bin and overwrite chromosomes[][] array
 }
 
 //------------------MATINGPOOL---------------
@@ -40,7 +40,7 @@ void pairingChamp(float paramresults[][]) {
   //generate two parents (array indexes) and choose the less one (best one)
   //then move it to paramresults array
   for (int i = 0; i < nGood; i++) {
-    
+
     //generate parents
     int parent1 = ceil((nGood*random(0, 1)));
     int parent2 = ceil((nGood*random(0, 1))); 
@@ -48,13 +48,10 @@ void pairingChamp(float paramresults[][]) {
     println("p1 = " +  parent1 + " p2 = " + parent2 + " min = " + parentmin);
 
     //copy the best parent (parentmin) in to paramresults array til nGood index
-      paramresults[i][paramresults[0].length-1] = parentmin;
+    paramresults[i][paramresults[0].length-1] = parentmin;
   }
-  printFloat(paramresults);  
+  printFloat(paramresults);
 }
-
-
-
 
 //--------------------------------DISPLAY & PRINT FUNCTIONS------------------------------------
 //print 1 and 0 status from every chromosome
@@ -66,7 +63,6 @@ void printBinary() {
     print("\n");
   }
 }
-
 
 //print paramResults Array
 void printFloat(float paramresults[][]) {
@@ -93,10 +89,39 @@ void displayChromosomes() {
 
 //--------------------------------BINARY & FLOAT CONVERTION FUNCTIONS------------------------------------
 
-void floattoBin(){  // converts float to binary and overwrite chromosomes array with the values
 
 
-  
+
+void crossing(float paramresults[][]) {  // converts float to binary and overwrite chromosomes array with the values
+  //printinr and running trough results array
+  int limit = paramresults.length;
+  println("crossing");
+  // Setting limit of pairs
+  for (int j = 0; j < limit; j++) {
+
+    print("[" + paramresults[j][paramresults[0].length-1] + "] ");
+    print("\n");
+    if (paramresults[j][paramresults[0].length-1] == 0) {
+      limit = j;  
+      println("limit = " + limit);
+    }
+  }
+
+  //converting to binary
+  for (int i = 0; i < limit; i++) {
+    String cad1;
+    String cad2;
+    //setting cad1
+    if (paramresults[i][0] < 0) {  // if is negative number
+      cad1 = "1" + binary(abs((int)paramresults[i][0]), nbits-1);
+    } 
+    else {
+      cad1 = "0" + binary(abs((int)paramresults[i][0]), nbits-1);
+    }
+    print(cad1);
+    print("[" + paramresults[i][0] + "] ");
+    print("\n");
+  }
 }
 
 
