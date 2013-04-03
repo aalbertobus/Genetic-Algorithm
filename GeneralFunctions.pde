@@ -1,23 +1,28 @@
+//------------------------------BEGIN-PROCESS--------------------------------
+void startProcess(){
+  //convert from binary to decimal,calculate & sort (sort is minmax or maxmin and use the last column(fitness result) as reference)
+  calculate(bintoFloat(chromosomes),sortype);    
+}
+
 //-------------------------------CALCULATE FUNCTION----------------------------
 void calculate(float paramresults[][], String sortype_) {
   float result = 0;
   //calculating the function
   for (int i = 0; i < paramresults.length; i++) {
     float x = paramresults[i][0];
-    float y = paramresults[i][1];
-    float z = paramresults[i][2];
-    result = (x+y+z); 
+    //float y = paramresults[i][1];
+    //float z = paramresults[i][2];
+    result =   sin(radians(sqrt(abs(x)))) * -x;  //f(x)=-xsen( √∣x∣ )  absolute value of sqrt(x)
 
     paramresults[i][paramresults[0].length-2] = result;
   }
-  //printFloat(paramresults);
+  printFloat(paramresults);
   resultSort(paramresults, sortype_);  //sorting the results array
   printFloat(paramresults);
   matingPool(paramresults);  // do the matingPool function
   pairingChamp(paramresults);  //pairing using championship technique
+  floattoBin();  //converting sorted values to bin and overwrite chromosomes[][] array
 }
-
-
 
 //------------------MATINGPOOL---------------
 
@@ -47,6 +52,8 @@ void pairingChamp(float paramresults[][]) {
   }
   printFloat(paramresults);  
 }
+
+
 
 
 //--------------------------------DISPLAY & PRINT FUNCTIONS------------------------------------
@@ -85,6 +92,13 @@ void displayChromosomes() {
 
 
 //--------------------------------BINARY & FLOAT CONVERTION FUNCTIONS------------------------------------
+
+void floattoBin(){  // converts float to binary and overwrite chromosomes array with the values
+
+
+  
+}
+
 
 float[][] bintoFloat(Chromosome chromosomes[][]) {  //converts binary to float and storeit in paramresults[][] array
   int col = nbits*params;
