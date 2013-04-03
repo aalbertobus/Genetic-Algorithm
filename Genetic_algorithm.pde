@@ -8,16 +8,15 @@ String sortype = "minmax";  // sort type can be minmax or maxmin
 
 //int col = nbits*params;
 //int row = nipop;
-Chromosome[][] chromosomes = new Chromosome[nipop][nbits*params];
+Chromosome[][] chromosomes = new Chromosome [nipop][params];
 
-
-void setup() {
-  size(200, 200);
+void setup(){
+  size(500, 500);
   smooth();
-  //---------------Creating CHROMOSOMES---------
+  //---------------Creating CHROMOSOMESGroup---------
   for (int i = 0; i < chromosomes.length; i++) {
     for (int j = 0; j < chromosomes[0].length; j++) {
-      chromosomes[i][j] = new Chromosome();
+      chromosomes[i][j] = new Chromosome(nbits);
     }
   }
   //print status of every chromosome

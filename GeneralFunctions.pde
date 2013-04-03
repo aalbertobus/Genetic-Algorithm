@@ -54,11 +54,11 @@ void pairingChamp(float paramresults[][]) {
 }
 
 //--------------------------------DISPLAY & PRINT FUNCTIONS------------------------------------
-//print 1 and 0 status from every chromosome
+//print 1 and 0 status from every Chromosome
 void printBinary() {
   for (int i = 0; i < chromosomes.length; i++) {
     for (int j = 0; j < chromosomes[0].length; j++) {
-      print(chromosomes[i][j].getBinary());
+      print("[" + chromosomes[i][j].chromoString + "]");
     }
     print("\n");
   }
@@ -81,16 +81,12 @@ void displayChromosomes() {
     for (int j = 0; j < chromosomes[0].length; j++) {
       chromosomes[i][j].display();
 
-      //chromosomes[i][j].goCenter();
     }
   }
 }
 
 
 //--------------------------------BINARY & FLOAT CONVERTION FUNCTIONS------------------------------------
-
-
-
 
 void crossing(float paramresults[][]) {  // converts float to binary and overwrite chromosomes array with the values
   //printinr and running trough results array
@@ -125,49 +121,39 @@ void crossing(float paramresults[][]) {  // converts float to binary and overwri
 }
 
 
+//--------------------------------BINARY & FLOAT CONVERTION FUNCTIONS------------------------------------
 float[][] bintoFloat(Chromosome chromosomes[][]) {  //converts binary to float and storeit in paramresults[][] array
   int col = nbits*params;
   int row = nipop;
-  int result = 0; 
-  int limits = nbits;
-  int ponential = 0;
-  float paramresults[][] = new float[nipop][params+2];  //params+1
+  int counterrow = 0;
+  float result = 0; 
+  float paramresults[][] = new float[nipop][params+2];  //creating paramresults array
 
-  for (int i = 0; i < chromosomes.length ; i++) {
-    for (int j = chromosomes[0].length-1; j > -1; j--) { //read chromsomes array backwards  //-1
-
-      if ((j > (col-limits)) && (chromosomes[i][j].status == true)) {
-        result = result + int(pow(2, ponential));           // make the binary conversion
-      }
-
-      if (j == (col-limits)) {  // check sign & send to paramresults array
-
-        if (chromosomes[i][j].status == true) {  // if sign = 1(true) then result = result *-1;
-          result = result *-1;
-        } 
-        else if (chromosomes[i][j].status == false) {
-          result = result * 1;
+  for (int i = 0; i < chromosomes.length; i++) {
+    for (int j = 0; j < chromosomes[0].length; j++) {
+      //check if is negative or positive checking the first number
+      if (chromosomes[i][j].chromoString.charAt(0) == '1') {
+        //negative! 
+        result = (unbinary(chromosomes[i][j].chromoString) - pow(2, nbits-1)) * -1;
+        if (result == -0.0) {
+          result = 0;
         }
-
-        //storing in paramresults array 
-        paramresults[i][(params-1)] = result;
-        params--;
-        //restarting values...
-        ponential = 0;
-        limits = limits+nbits;
-        result = 0;
+        //print("[" + result + "]");
       } 
-      else {
-        ponential ++;
+      else if (chromosomes[i][j].chromoString.charAt(0) == '0') {
+        //positive
+        result = unbinary(chromosomes[i][j].chromoString);
+        //print("[" + result + "]");
       }
-
-      if (col-limits < 0) {   // end line
-        limits = nbits;
-        params = paramresults[0].length-2;
-      }
+      paramresults[i][(counterrow)] = result;
+      counterrow++;
+    } 
+    //print("\n"); 
+    if(counterrow >= paramresults[0].length-2) {
+      counterrow = 0;
     }
   }
-  return paramresults;  //return value
+  return paramresults;
 }
 
 
