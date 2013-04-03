@@ -11,14 +11,26 @@ class Chromosome {
     chromoString = doChromosomes(nbits_);
   }
 
-  void display() {
+  void display(String displayMode_) {
     noStroke();
-     //select color of cromosome
-     String string = chromoString;
-    if(chromoString.charAt(0) == '1'){
-      fill(255, 0, 30, 100); // red
-    } else if(chromoString.charAt(0) == '0'){
-      fill(0, 255, 30, 80); //green
+    //select color of cromosome
+    String string = chromoString;
+    if (displayMode_ == "binary") {
+      if (chromoString.charAt(0) == '1') {
+        fill(255, 0, 30, 100); // red
+      } 
+      else if (chromoString.charAt(0) == '0' ) {
+        fill(0, 255, 30, 80); //green
+      }
+    }
+
+    if (displayMode_ == "decimal") {
+      if (chromoString.charAt(0) == '-') {
+        fill(255, 0, 30, 100); // red
+      } 
+      else {
+        fill(0, 255, 30, 80); //green
+      }
     }
     ellipse(x, y, diam, diam);
     fill(0, 255);

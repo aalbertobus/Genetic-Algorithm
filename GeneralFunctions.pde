@@ -23,6 +23,43 @@ void calculate(float paramresults[][], String sortype_) {
   pairingChamp(paramresults);  //pairing using championship technique
   crossing(paramresults);  //converting sorted values to bin and overwrite chromosomes[][] array
 }
+//--------------------------------BINARY & FLOAT CONVERTION FUNCTIONS------------------------------------
+float[][] bintoFloat(Chromosome chromosomes[][]) {  //converts binary to float and storeit in paramresults[][] array
+  int col = nbits*params;
+  int row = nipop;
+  int counterrow = 0;
+  float result = 0; 
+  float paramresults[][] = new float[nipop][params+2];  //creating paramresults array
+
+  for (int i = 0; i < chromosomes.length; i++) {
+    for (int j = 0; j < chromosomes[0].length; j++) {
+      //check if is negative or positive checking the first number
+      if (chromosomes[i][j].chromoString.charAt(0) == '1') {
+        //negative! 
+        result = (unbinary(chromosomes[i][j].chromoString) - pow(2, nbits-1)) * -1;
+        if (result == -0.0) {
+          result = 0;
+        }
+        //print("[" + result + "]");
+      } 
+      else if (chromosomes[i][j].chromoString.charAt(0) == '0') {
+        //positive
+        result = unbinary(chromosomes[i][j].chromoString);
+        //print("[" + result + "]");
+      }
+      chromosomes[i][j].chromoString = "" + result;  //setting chromoString for visualization
+      displayMode = "decimal";
+      paramresults[i][(counterrow)] = result;
+
+      counterrow++;
+    } 
+    //print("\n"); 
+    if (counterrow >= paramresults[0].length-2) {
+      counterrow = 0;
+    }
+  }
+  return paramresults;
+}
 
 //------------------MATINGPOOL---------------
 
@@ -76,11 +113,10 @@ void printFloat(float paramresults[][]) {
 }
 
 
-void displayChromosomes() {
+void displayChromosomes(String displayMode) {
   for (int i = 0; i < chromosomes.length; i++) {
     for (int j = 0; j < chromosomes[0].length; j++) {
-      chromosomes[i][j].display();
-
+      chromosomes[i][j].display(displayMode);
     }
   }
 }
@@ -89,9 +125,10 @@ void displayChromosomes() {
 //--------------------------------BINARY & FLOAT CONVERTION FUNCTIONS------------------------------------
 
 void crossing(float paramresults[][]) {  // converts float to binary and overwrite chromosomes array with the values
-  //printinr and running trough results array
+
+  //printing and running trough results array
   int limit = paramresults.length;
-  println("crossing");
+  println("CROSSING");
   // Setting limit of pairs
   for (int j = 0; j < limit; j++) {
 
@@ -103,57 +140,84 @@ void crossing(float paramresults[][]) {  // converts float to binary and overwri
     }
   }
 
-  //converting to binary
-  for (int i = 0; i < limit; i++) {
-    String cad1;
-    String cad2;
-    //setting cad1
-    if (paramresults[i][0] < 0) {  // if is negative number
-      cad1 = "1" + binary(abs((int)paramresults[i][0]), nbits-1);
+
+
+  int auxlimit = 0;
+  while (auxlimit < limit) {
+    //Generating auxiliar random for crossing
+    String auxbin = "";
+    //writing on auxbin
+    for (int j = 0; j < nbits; j++) {
+      char status;
+      if (random(0, 1) < 0.5) {  //assigning status
+        status = '0';
+      } 
+      else {
+        status = '1';
+      }
+      auxbin = auxbin + status;
+    }
+    println("axbin: " + auxbin);
+
+    String cad1  = "";
+    String cad2 = "";
+    //converting from float to binary
+
+
+    float index0, index1;
+    index0 = paramresults[auxlimit][paramresults[0].length-1] ;
+    index1 = paramresults[auxlimit+1][paramresults[0].length-1] ;
+
+    if (index1 == 0) {  //if odd number take index 0 to cross with itself
+      index1 = index0;
+    }
+
+    println("in0: " + index0);
+    println("in1: " + index1);
+
+    //setting cad1 
+    if (paramresults[(int)index0-1][0] < 0) {  // if is negative number
+      cad1 = "1" + binary(abs((int)paramresults[(int)index0-1][0]), nbits-1);
     } 
     else {
-      cad1 = "0" + binary(abs((int)paramresults[i][0]), nbits-1);
+      cad1 = "0" + binary(abs((int)paramresults[(int)index0-1][0]), nbits-1);
     }
-    print(cad1);
-    print("[" + paramresults[i][0] + "] ");
-    print("\n");
-  }
-}
 
-
-//--------------------------------BINARY & FLOAT CONVERTION FUNCTIONS------------------------------------
-float[][] bintoFloat(Chromosome chromosomes[][]) {  //converts binary to float and storeit in paramresults[][] array
-  int col = nbits*params;
-  int row = nipop;
-  int counterrow = 0;
-  float result = 0; 
-  float paramresults[][] = new float[nipop][params+2];  //creating paramresults array
-
-  for (int i = 0; i < chromosomes.length; i++) {
-    for (int j = 0; j < chromosomes[0].length; j++) {
-      //check if is negative or positive checking the first number
-      if (chromosomes[i][j].chromoString.charAt(0) == '1') {
-        //negative! 
-        result = (unbinary(chromosomes[i][j].chromoString) - pow(2, nbits-1)) * -1;
-        if (result == -0.0) {
-          result = 0;
-        }
-        //print("[" + result + "]");
-      } 
-      else if (chromosomes[i][j].chromoString.charAt(0) == '0') {
-        //positive
-        result = unbinary(chromosomes[i][j].chromoString);
-        //print("[" + result + "]");
-      }
-      paramresults[i][(counterrow)] = result;
-      counterrow++;
+    //setting cad2 
+    if (paramresults[(int)index1-1][0] < 0) {  // if is negative number
+      cad2 = "1" + binary(abs((int)paramresults[(int)index1-1][0]), nbits-1);
     } 
-    //print("\n"); 
-    if(counterrow >= paramresults[0].length-2) {
-      counterrow = 0;
+    else {
+      cad2 = "0" + binary(abs((int)paramresults[(int)index1-1][0]), nbits-1);
     }
+    println("cad1 = " +cad1);
+    println("cad2 = " +cad2);
+
+    //Crossing with uniform cross
+    //running trough auxbin string
+    String auxcad1 = "";
+    String auxcad2 = "";
+    for (int i = 0; i < auxbin.length(); i++) {
+      if (auxbin.charAt(i) == '1') {
+        auxcad1 = auxcad1+cad2.charAt(i);
+        auxcad2 = auxcad2+cad1.charAt(i);
+      }
+      else if (auxbin.charAt(i) =='0') {
+        auxcad1 = auxcad1+cad1.charAt(i);
+        auxcad2 = auxcad2+cad2.charAt(i);
+      }
+    }
+
+    println("auxcad1 = " + auxcad1);
+    println("auxbin  = " + auxbin);
+    println("auxcad2 = " + auxcad2);
+
+    auxlimit = auxlimit+2;
+    //se tiene que mandar a guardar el valor.
+    // y en el siguiente procedimiento reiniciar auxlimit
+    println("auxlimi = " + auxlimit);
   }
-  return paramresults;
+  println("alto");
 }
 
 
