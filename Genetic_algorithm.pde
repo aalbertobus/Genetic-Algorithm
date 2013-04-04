@@ -1,9 +1,10 @@
+int iteration = 0;
+String infoText = "";
+
 int nGood, nBad, nPop;
-
 int nbits = 10; // cols for the initial population array
-int nipop =10 ;  //rows for the initial population array
+int nipop =500;  //rows for the initial population array
 int params = 1;
-
 String displayMode = "binary";
 String sortype = "minmax";  // sort type can be minmax or maxmin
 
@@ -12,8 +13,9 @@ String sortype = "minmax";  // sort type can be minmax or maxmin
 Chromosome[][] chromosomes = new Chromosome [nipop][params];
 
 void setup(){
-  //frameRate(1);
+  frameRate(1);
   size(500, 500);
+  background(180);
   smooth();
   //---------------Creating CHROMOSOMESGroup---------
   for (int i = 0; i < chromosomes.length; i++) {
@@ -22,6 +24,9 @@ void setup(){
     }
   }
   //print status of every chromosome
+  iteration++;
+   fill(255,255);
+  text("Iteration = " + iteration, 50, 30); 
   displayChromosomes(displayMode); //display
   printBinary();
 
@@ -30,8 +35,13 @@ void setup(){
 }
 
 void draw() {
-   //frameRate(30);
-  background(180);
+  fill(180,100);
+  rect(0,0,width,height);
+  
   displayChromosomes(displayMode); //display
+  fill(255,255);
+  text("Iteration = " + iteration, 50, 30);
+  text(infoText, 80, 50); 
+  frameRate(60);
 }
 
