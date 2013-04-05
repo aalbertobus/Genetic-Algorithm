@@ -32,7 +32,7 @@ class Chromosome {
       else if (chromoString.charAt(0) == '0' ) {
         fill(0, 255, 30, 80); //green
       } else if(chromoString.charAt(0) == ' '){
-          fill(180, 20); //gray
+          fill(180, 0); //gray
       }
     }
 
