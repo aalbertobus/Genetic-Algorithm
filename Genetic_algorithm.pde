@@ -7,7 +7,7 @@ int nbits = 10; // cols for the initial population array
 int nipop =1000;  //rows for the initial population array
 int params = 1;
 String displayMode = "binary";
-String sortype = "maxmin";  // sort type can be minmax or maxmin
+String sortype = "minmax";  // sort type can be minmax or maxmin
 int time;
 //int col = nbits*params;
 //int row = nipop;
@@ -46,6 +46,7 @@ void setup() {
   initpopu[initpopu.length-1] = ("SORTYPE = " + sortype); 
   // Save to File
   saveStrings("initialpopulation.txt", initpopu);
+  printBinary();
 }
 
 void draw() {
