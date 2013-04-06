@@ -1,10 +1,9 @@
 int iteration = 0;
 String infoText = "";
 float convergence = 0; 
-
-
+int chromosomeCounter = 0; // for mutation
 int nGood, nBad, nPop;
-int nbits = 5; // cols for the initial population array
+int nbits = 10; // cols for the initial population array
 int nipop =1000;  //rows for the initial population array
 int params = 1;
 String displayMode = "binary";
@@ -24,15 +23,16 @@ void setup() {
   for (int i = 0; i < chromosomes.length; i++) {
     for (int j = 0; j < chromosomes[0].length; j++) {
       chromosomes[i][j] = new Chromosome(nbits);
+      chromosomeCounter ++;
     }
   }
-  //print status of every chromosome
+
 
   //visualizations and saving frames and initial data
   fill(255, 255);
   text("Iteration = " + iteration, 50, 30);
   displayChromosomes(displayMode); //display
-  saveFrame("initialpopulation.jpg");  //save frame for initial population
+  saveFrame("poblacionInicial..jpg");  //save frame for initial population
   fill(255);
   text(infoText, width/2, height/2);
   textSize(12);
@@ -44,7 +44,7 @@ void setup() {
   initpopu[initpopu.length-2] = (nipop + " CHROMOSOMESGROUP GENERATED OF " + nbits + " CHROMOSOMES EACH ONE"); 
   initpopu[initpopu.length-1] = ("SORTYPE = " + sortype); 
   // Save to File
-  saveStrings("initialpopulation.txt", initpopu);
+  saveStrings("poblacionInicial..txt", initpopu);
   printBinary();
 }
 
@@ -61,6 +61,5 @@ void draw() {
     startProcess();
   }
 }
-
 
 
