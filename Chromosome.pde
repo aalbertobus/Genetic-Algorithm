@@ -1,27 +1,30 @@
 class Chromosome {
-  char status;  // is a 1 or 0 cromosome
-  float x, y;
-  float velX; 
+  char status;  // is a 1 or 0 chromosome?
+  float x, y;   //x & y position to locate chromosomeGroup on screen
+  float velX;   //velocity x, y
   float velY; 
-  float diam;
-  int dir;
-  String chromoString;
+  float diam;  //diameter
+  int dir;     //direction 
+  String chromoString;//chromoString stores the whole binary number in a string
 
-  Chromosome(int nbits_) {
-    x = random(width);  //positionX
-    y = random(height); //position Y
-    velX= random(1, 5); //velocity X
-    velY= random(1, 5); //velocity Y
-    if (random(0, 1) < 0.5) {  //seting direction;
+    Chromosome(int nbits_) {
+    //Random positions,velocities & directions
+    x = random(width);  
+    y = random(height); 
+    velX= random(1, 5); 
+    velY= random(1, 5); 
+    //seting direction
+    if (random(0, 1) < 0.5) {  
       dir = -1 ;
     } 
     else {
       dir = 1;
     }
     diam = nbits_*8; //diameter
-    chromoString = doChromosomes(nbits_);
+    chromoString = doChromosomes(nbits_); //doChromosomes(int nbits) function fills chromoString values
   }
 
+  //to display chromosomeGroups
   void display(String displayMode_) {
     noStroke();
     //select color of cromosome
@@ -34,7 +37,7 @@ class Chromosome {
         fill(0, 255, 30, 80); //green
       } 
       else if (chromoString.charAt(0) == ' ') {
-        fill(180, 0); //gray
+        fill(180, 0); //gray (our background is gray to these are invisibles
       }
     }
 
@@ -46,12 +49,14 @@ class Chromosome {
         fill(0, 255, 30, 80); //green
       }
     }
+    //drawing the circle
     ellipse(x, y, diam, diam);
     fill(0, 255);
     textAlign(CENTER);
     text(string, x, y+3);
 
-    x = x+velX *dir;
+    //Adding velocity to our position
+    x = x+velX *dir; 
     y = y+velY * dir;
 
     //check edges
@@ -60,6 +65,7 @@ class Chromosome {
     }
   }
 
+  //define 1 or 0 with a random function
   char statusChromosome() {
     if (random(0, 1) < 0.5) {  //assigning status
       status = '0';
@@ -71,15 +77,14 @@ class Chromosome {
   }
 
 
+  //generate a group of 1 & 0's in a string= this is a chromosomeGroup
   String doChromosomes(int nbits_) {
     String binarytext = "";
     char status_;
-
     for (int i = 0; i < nbits_; i++) {
       status_ = statusChromosome();
       binarytext = binarytext + status_;
     }
-
     return binarytext;
   }
 }
