@@ -39,9 +39,8 @@ void calculate(float paramresults[][], String sortype_) {
     results[iteration] = ("Iteration = " + iteration + "     x = " + chromosomes[0][0].chromoString + "     Fitness = " + paramresults[0][paramresults[0].length-2] + "     Convergence = " + convergence);
 
     // Save to File
-    saveStrings("results.txt", results);
-    saveFrame("Endpopulation.jpg");
-
+    saveStrings("salida.txt", results);
+    saveFrame("proceso.jpg");
     exit();
   }
 
