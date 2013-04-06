@@ -1,9 +1,10 @@
 int iteration = 0;
 String infoText = "";
-boolean status = true; // to stop program
+float convergence = 0; 
+
 
 int nGood, nBad, nPop;
-int nbits = 10; // cols for the initial population array
+int nbits = 5; // cols for the initial population array
 int nipop =1000;  //rows for the initial population array
 int params = 1;
 String displayMode = "binary";
@@ -12,7 +13,7 @@ int time;
 //int col = nbits*params;
 //int row = nipop;
 Chromosome[][] chromosomes = new Chromosome [nipop][params];
-
+String[] results = new String[chromosomes.length]; // to store results to print in txt file
 void setup() {
   frameRate(1);
   size(500, 500);
@@ -32,8 +33,6 @@ void setup() {
   text("Iteration = " + iteration, 50, 30);
   displayChromosomes(displayMode); //display
   saveFrame("initialpopulation.jpg");  //save frame for initial population
-  textSize(30);
-  infoText = ("PRESS ENTER TO STOP");
   fill(255);
   text(infoText, width/2, height/2);
   textSize(12);
@@ -63,10 +62,5 @@ void draw() {
   }
 }
 
-void keyPressed() {
-  if (key == ENTER) {
-    status = !status;
-    println("STATUS!!------" + status);
-  }
-}
+
 
