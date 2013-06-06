@@ -6,4 +6,4 @@ the whole process just works with 1 parameter
 steps before crossing could be easily adapted to use multiple parameters.
 
 it generates an initial population screenshoot and a txt file with all the initial population
-and a results file with the best solutions.
+and results file with the best solutions.
